@@ -1,2 +1,2 @@
 # line-messaging-api-csharp
-LINE Messaging API for C#
+LINE Messaging API C# SDK

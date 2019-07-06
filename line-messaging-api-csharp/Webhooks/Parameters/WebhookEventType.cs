@@ -1,0 +1,20 @@
+﻿namespace LineDC.Messaging.Webhooks
+{
+    /// <summary>
+    /// Webhook Event Type
+    /// </summary>
+    public enum WebhookEventType
+    {
+        Message,
+        Follow,
+        Unfollow,
+        Join,
+        Leave,
+        Postback,
+        Beacon,
+        AccountLink,
+        MemberJoined,
+        MemberLeft,
+        Things
+    }
+}
