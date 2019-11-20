@@ -2,24 +2,25 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>pierre3, kenamanu</Authors>
-    <Company></Company>
-    <Product>line-messaging-api-csharp</Product>
+    <Authors>LINE Developer Community</Authors>
+    <Company>LINE Developer Community</Company>
+    <Product>LINE Developer Community</Product>
     <Description>SDK for the LINE Messaging API for C#</Description>
     <Version>1.0.0</Version>
-    <Copyright>© 2019 pierre3</Copyright>
+    <Copyright>LINE Developer Community</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageTags>LINE,LINE Messaging API,Bot</PackageTags>
-    <PackageProjectUrl></PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/line-developer-community/line-messaging-api-csharp</PackageProjectUrl>
     <IncludeSymbols>true</IncludeSymbols>
-    <RepositoryUrl></RepositoryUrl>
+    <RepositoryUrl>https://github.com/line-developer-community/line-messaging-api-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>1.0 initial release</PackageReleaseNotes>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>LineDC.Messaging</RootNamespace>
+    <PackageId>LineDC.Messaging</PackageId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
