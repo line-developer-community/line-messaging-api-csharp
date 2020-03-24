@@ -16,6 +16,11 @@ namespace LineDC.Messaging.Messages
         public QuickReply QuickReply { get; set; }
 
         /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
+        /// <summary>
         /// Flex Message container object
         /// </summary>
         public IFlexContainer Contents { get; set; }

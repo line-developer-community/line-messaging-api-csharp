@@ -13,6 +13,11 @@
         public QuickReply QuickReply { get; set; }
 
         /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
+        /// <summary>
         /// Package ID for a set of stickers. For information on package IDs, see the Sticker list.
         /// </summary>
         public string PackageId { get; }
@@ -34,11 +39,15 @@
         /// <param name="quickReply">
         /// QuickReply
         /// </param>
-        public StickerMessage(string packageId, string stickerId, QuickReply quickReply = null)
+        /// <param name="sender">
+        /// Sender
+        /// </param>
+        public StickerMessage(string packageId, string stickerId, QuickReply quickReply = null, Sender sender = null)
         {
             PackageId = packageId;
             StickerId = stickerId;
             QuickReply = quickReply;
+            Sender = sender;
         }
     }
 }
