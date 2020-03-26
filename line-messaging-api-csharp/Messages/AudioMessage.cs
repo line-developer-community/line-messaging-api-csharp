@@ -15,6 +15,11 @@ namespace LineDC.Messaging.Messages
         public QuickReply QuickReply { get; set; }
 
         /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
+        /// <summary>
         /// URL of audio file (Max: 1000 characters)
         /// HTTPS
         /// m4a
@@ -44,11 +49,15 @@ namespace LineDC.Messaging.Messages
         /// <param name="quickReply">
         /// QuickReply
         /// </param>
-        public AudioMessage(string originalContentUrl, long duration, QuickReply quickReply = null)
+        /// <param name="sender">
+        /// Sender
+        /// </param>
+        public AudioMessage(string originalContentUrl, long duration, QuickReply quickReply = null, Sender sender = null)
         {
             OriginalContentUrl = originalContentUrl;
             Duration = duration;
             QuickReply = quickReply;
+            Sender = sender;
         }
     }
 }

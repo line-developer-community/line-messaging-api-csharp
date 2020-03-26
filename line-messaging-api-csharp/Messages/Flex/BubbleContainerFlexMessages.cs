@@ -25,13 +25,24 @@ namespace LineDC.Messaging.Messages.Flex
         }
 
         /// <summary>
-        /// Sets a QuickReply object to the FlexMessage objecy.
+        /// Sets a QuickReply object to the FlexMessage object.
         /// </summary>
         /// <param name="quickReply"></param>
         /// <returns>Flex Message</returns>
         public BubbleContainerFlexMessage SetQuickReply(QuickReply quickReply)
         {
             QuickReply = quickReply;
+            return this;
+        }
+
+        /// <summary>
+        /// Sets a Sender object to the FlexMessage object.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <returns>Flex Message</returns>
+        public BubbleContainerFlexMessage SetSender(Sender sender)
+        {
+            Sender = sender;
             return this;
         }
     }

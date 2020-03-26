@@ -16,6 +16,11 @@ namespace LineDC.Messaging.Messages
         /// </summary>
         public QuickReply QuickReply { get; set; }
 
+        /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
 
         /// <summary>
         /// A Buttons, Confirm, Carousel, or Image Carousel object.
@@ -41,11 +46,15 @@ namespace LineDC.Messaging.Messages
         /// <param name="quickReply">
         /// QuickRepy
         /// </param>
-        public TemplateMessage(string altText, ITemplate template, QuickReply quickReply = null)
+        /// <param name="sender">
+        /// Sender
+        /// </param>
+        public TemplateMessage(string altText, ITemplate template, QuickReply quickReply = null, Sender sender = null)
         {
             AltText = altText.Substring(0, Math.Min(altText.Length, 400));
             Template = template;
             QuickReply = quickReply;
+            Sender = sender;
         }
     }
 }

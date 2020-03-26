@@ -16,6 +16,11 @@ namespace LineDC.Messaging.Messages
         public QuickReply QuickReply { get; set; }
 
         /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
+        /// <summary>
         /// Title
         /// Max: 100 characters
         /// </summary>
@@ -57,13 +62,17 @@ namespace LineDC.Messaging.Messages
         /// <param name="quickReply">
         /// QuickReply
         /// </param>
-        public LocationMessage(string title, string address, decimal latitude, decimal longitude, QuickReply quickReply = null)
+        /// <param name="sender">
+        /// Sender
+        /// </param>
+        public LocationMessage(string title, string address, decimal latitude, decimal longitude, QuickReply quickReply = null, Sender sender = null)
         {
             Title = title.Substring(0, Math.Min(title.Length, 100));
             Address = address.Substring(0, Math.Min(address.Length, 100));
             Latitude = latitude;
             Longitude = longitude;
             QuickReply = quickReply;
+            Sender = sender;
         }
     }
 }

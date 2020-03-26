@@ -18,6 +18,11 @@ namespace LineDC.Messaging.Messages
         public QuickReply QuickReply { get; set; }
 
         /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
+        /// <summary>
         /// Base URL of image (Max: 1000 characters)
         /// HTTPS
         /// </summary>
@@ -71,7 +76,10 @@ namespace LineDC.Messaging.Messages
         /// <param name="video">
         /// Video to play on imagemap
         /// </param>
-        public ImagemapMessage(string baseUrl, string altText, ImageSize baseSize, IList<IImagemapAction> actions, QuickReply quickReply = null, Video video = null)
+        /// <param name="sender">
+        /// Sender
+        /// </param>
+        public ImagemapMessage(string baseUrl, string altText, ImageSize baseSize, IList<IImagemapAction> actions, QuickReply quickReply = null, Video video = null, Sender sender = null)
         {
             BaseUrl = baseUrl;
             AltText = altText.Substring(0, Math.Min(altText.Length, 400)); ;
@@ -79,6 +87,7 @@ namespace LineDC.Messaging.Messages
             Actions = actions;
             QuickReply = quickReply;
             Video = video;
+            Sender = sender;
         }
     }
 }

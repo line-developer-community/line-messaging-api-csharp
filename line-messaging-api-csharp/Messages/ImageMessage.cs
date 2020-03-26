@@ -14,6 +14,11 @@
         public QuickReply QuickReply { get; set; }
 
         /// <summary>
+        /// When sending a message from the LINE Official Account, you can specify the sender in Message objects.
+        /// </summary>
+        public Sender Sender { get; set; }
+
+        /// <summary>
         /// Image URL (Max: 1000 characters)
         /// HTTPS
         /// JPEG
@@ -51,11 +56,15 @@
         /// <param name="quickReply">
         /// QuickReply
         /// </param>
-        public ImageMessage(string originalContentUrl, string previerImageUrl, QuickReply quickReply = null)
+        /// <param name="sender">
+        /// Sender
+        /// </param>
+        public ImageMessage(string originalContentUrl, string previerImageUrl, QuickReply quickReply = null, Sender sender = null)
         {
             OriginalContentUrl = originalContentUrl;
             PreviewImageUrl = previerImageUrl;
             QuickReply = quickReply;
+            Sender = sender;
         }
     }
 }
