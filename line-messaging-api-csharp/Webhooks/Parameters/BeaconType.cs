@@ -9,10 +9,16 @@
         /// <summary>
         /// Left beacon's reception range
         /// </summary>
+        [System.Obsolete]
         Leave,
         /// <summary>
         /// Tapped beacon banner 
         /// </summary>
-        Banner
+        Banner,
+        /// <summary>
+        /// A user is in the beacon's reception range.
+        /// This event is sent repeatedly at a minimum of 10 seconds.
+        /// </summary>
+        Stay
     }
 }
