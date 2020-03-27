@@ -6,7 +6,7 @@
     <Company>LINE Developer Community</Company>
     <Product>LINE Developer Community</Product>
     <Description>SDK for the LINE Messaging API for C#</Description>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Copyright>LINE Developer Community</Copyright>
     <PackageLicenseUrl></PackageLicenseUrl>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -15,10 +15,16 @@
     <IncludeSymbols>true</IncludeSymbols>
     <RepositoryUrl>https://github.com/line-developer-community/line-messaging-api-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>1.1 add Sender to support icon/nickname switch
-1.0 initial release</PackageReleaseNotes>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <PackageReleaseNotes>1.1.1 
+  -supports the domain name changes in the following API endpoint
+    - Get content
+    - Upload rich menu image
+    - Download rich menu image
+  - add stay event to beacon event
+1.1.0 add Sender to support icon/nickname switch
+1.0.0 initial release</PackageReleaseNotes>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RootNamespace>LineDC.Messaging</RootNamespace>
     <PackageId>LineDC.Messaging</PackageId>
