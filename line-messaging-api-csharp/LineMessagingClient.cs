@@ -21,9 +21,11 @@ namespace LineDC.Messaging
     public class LineMessagingClient : ILineMessagingClient
     {
         protected const string DEFAULT_URI = "https://api.line.me/v2";
+        protected const string DEFAULT_DATA_URI = "https://api-data.line.me/v2";
         protected static readonly HttpClient _client = new HttpClient();
         protected readonly JsonSerializerSettings _jsonSerializerSettings;
         protected readonly string _uri;
+        protected readonly string _dataUri;
         protected readonly AuthenticationHeaderValue _authorization;
 
         /// <summary>
@@ -31,7 +33,8 @@ namespace LineDC.Messaging
         /// </summary>
         /// <param name="channelAccessToken">ChannelAccessToken</param>
         /// <param name="uri">Request URI</param>
-        protected LineMessagingClient(string channelAccessToken, string uri)
+        /// <param name="dataUri">Request URI for uploading and downloading media data</param>
+        protected LineMessagingClient(string channelAccessToken, string uri, string dataUri)
         {
             _authorization = new AuthenticationHeaderValue("Bearer", channelAccessToken);
             _jsonSerializerSettings = new JsonSerializerSettings()
@@ -41,6 +44,7 @@ namespace LineDC.Messaging
             };
             _jsonSerializerSettings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
             _uri = uri;
+            _dataUri = dataUri;
         }
 
         /// <summary>
@@ -48,10 +52,11 @@ namespace LineDC.Messaging
         /// </summary>
         /// <param name="channelAccessToken">channel access token</param>
         /// <param name="uri">URI</param>
+        /// <param name="dataUri">Request URI for uploading and downloading media data</param>
         /// <returns>Instance of <see cref="LineDC.Messaging.LineMessagingClient"/></returns>
-        public static LineMessagingClient Create(string channelAccessToken, string uri = DEFAULT_URI)
+        public static LineMessagingClient Create(string channelAccessToken, string uri = DEFAULT_URI, string dataUri = DEFAULT_DATA_URI)
         {
-            return new LineMessagingClient(channelAccessToken, uri);
+            return new LineMessagingClient(channelAccessToken, uri, dataUri);
         }
 
         /// <summary>
@@ -63,15 +68,17 @@ namespace LineDC.Messaging
         /// <param name="channelId">ChannelId</param>
         /// <param name="channelSecret">ChannelSecret</param>
         /// <param name="uri">URI</param>
+        /// <param name="dataUri">Request URI for uploading and downloading media data</param>
         /// <returns>Instance of <see cref="LineDC.Messaging.LineMessagingClient"/></returns>
-        public static async Task<LineMessagingClient> CreateAsync(string channelId, string channelSecret, string uri = DEFAULT_URI)
+        public static async Task<LineMessagingClient> CreateAsync(string channelId, string channelSecret,
+            string uri = DEFAULT_URI, string dataUri = DEFAULT_DATA_URI)
         {
             if (string.IsNullOrEmpty(channelId)) { throw new ArgumentNullException(nameof(channelId)); }
             if (string.IsNullOrEmpty(channelSecret)) { throw new ArgumentNullException(nameof(channelSecret)); }
 
             var oAuthClient = new OAuthClient(channelId, channelSecret, uri);
             var accessToken = await oAuthClient.IssueChannelAccessTokenAsync();
-            return new LineMessagingClient(accessToken.AccessToken, uri);
+            return new LineMessagingClient(accessToken.AccessToken, uri, dataUri);
         }
 
 
@@ -212,7 +219,7 @@ $@"{{
         /// <returns>Content as ContentStream</returns>
         public virtual async Task<HttpContent> GetContentAsync(string messageId)
         {
-            var response = await SendAsync(HttpMethod.Get, $"{_uri}/bot/message/{messageId}/content", null);
+            var response = await SendAsync(HttpMethod.Get, $"{_dataUri}/bot/message/{messageId}/content", null);
             return response.Content;
         }
 
@@ -224,7 +231,7 @@ $@"{{
         /// <returns>Content as byte array</returns>
         public virtual async Task<byte[]> GetContentBytesAsync(string messageId)
         {
-            var response = await SendAsync(HttpMethod.Get, $"{_uri}/bot/message/{messageId}/content", null);
+            var response = await SendAsync(HttpMethod.Get, $"{_dataUri}/bot/message/{messageId}/content", null);
             return await response.Content.ReadAsByteArrayAsync();
         }
         #endregion
@@ -483,7 +490,7 @@ $@"{{
         /// <returns>Image as <see cref="HttpContent"/></returns>
         public virtual async Task<HttpContent> DownloadRichMenuImageAsync(string richMenuId)
         {
-            var response = await SendAsync(HttpMethod.Get, $"{_uri}/bot/richmenu/{richMenuId}/content", null);
+            var response = await SendAsync(HttpMethod.Get, $"{_dataUri}/bot/richmenu/{richMenuId}/content", null);
             return response.Content;
         }
 
@@ -517,7 +524,7 @@ $@"{{
         {
             var content = new StreamContent(stream);
             content.Headers.ContentType = new MediaTypeHeaderValue(mediaType);
-            await SendAsync(HttpMethod.Post, $"{_uri}/bot/richmenu/{richMenuId}/content", content);
+            await SendAsync(HttpMethod.Post, $"{_dataUri}/bot/richmenu/{richMenuId}/content", content);
         }
 
         /// <summary>
