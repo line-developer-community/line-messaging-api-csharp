@@ -1,45 +1,44 @@
-﻿using LineDC.Messaging.Configurations;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+
+using LineDC.Messaging;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
-namespace LineDC.Messaging
+var builder = WebApplication.CreateBuilder(args);
+
+var settings = builder.Configuration.Get<LineBotSettings>() ?? throw new Exception();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.AddHttpClient<ILineMessagingClient, LineMessagingClient>(httpClient =>
+    LineMessagingClient.Create(httpClient, settings.ChannelAccessToken));
+
+var app = builder.Build();
+if (app.Environment.IsDevelopment())
 {
-    public class Startup
-    {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
-        {
-            var settings = Configuration.GetSection(nameof(LineBotSettings)).Get<LineBotSettings>();
-            services.AddSingleton<ILoggableWebhookApplication, LineBotApp>(_ =>
-                new LineBotApp(LineMessagingClient.Create(settings.ChannelAccessToken), settings));
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        }
-
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-            }
-
-            app.UseHttpsRedirection();
-            app.UseMvc();
-        }
-    }
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
+app.MapSwagger();
+app.MapPost("webhook", async (
+    HttpRequest request,
+    [FromHeader(Name = "x-line-signature")] string xLineSignature,
+    [FromServices] ILineMessagingClient line,
+    [FromServices] IOptions<LineBotSettings> settings) =>
+{
+    var bot = new BotApp(line, settings.Value.ChannelSecret, settings.Value.BotUserId);
+
+    var reader = new StreamReader(request.Body);
+    var body = await reader.ReadToEndAsync();
+
+    try
+    {
+        app.Logger.LogTrace($"RequestBody: {body}");
+        await bot.RunAsync(xLineSignature, body);
+    }
+    catch (Exception e)
+    {
+        app.Logger.LogError(e.Message);
+    }
+});
+
+app.Run();

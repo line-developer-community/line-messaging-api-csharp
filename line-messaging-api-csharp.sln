@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.352
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "line-messaging-api-csharp", "line-messaging-api-csharp\line-messaging-api-csharp.csproj", "{2F8E4201-3C6A-421D-81EA-A3DEBF8D40CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "line-messaging-api-csharp-web", "line-messaging-api-csharp-web\line-messaging-api-csharp-web.csproj", "{A9BDB7EA-8A7A-445A-A349-A0094757AA9B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "line-messaging-api-csharp-web", "line-messaging-api-csharp-web\line-messaging-api-csharp-web.csproj", "{03D38CBC-B320-4FC1-9F5E-3A812D79C8D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{2F8E4201-3C6A-421D-81EA-A3DEBF8D40CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F8E4201-3C6A-421D-81EA-A3DEBF8D40CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F8E4201-3C6A-421D-81EA-A3DEBF8D40CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9BDB7EA-8A7A-445A-A349-A0094757AA9B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9BDB7EA-8A7A-445A-A349-A0094757AA9B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9BDB7EA-8A7A-445A-A349-A0094757AA9B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9BDB7EA-8A7A-445A-A349-A0094757AA9B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D38CBC-B320-4FC1-9F5E-3A812D79C8D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D38CBC-B320-4FC1-9F5E-3A812D79C8D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D38CBC-B320-4FC1-9F5E-3A812D79C8D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D38CBC-B320-4FC1-9F5E-3A812D79C8D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

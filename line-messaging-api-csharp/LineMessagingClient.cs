@@ -22,7 +22,7 @@ namespace LineDC.Messaging
     {
         protected const string DEFAULT_URI = "https://api.line.me/v2";
         protected const string DEFAULT_DATA_URI = "https://api-data.line.me/v2";
-        protected static readonly HttpClient _client = new HttpClient();
+        protected readonly HttpClient _client;
         protected readonly JsonSerializerSettings _jsonSerializerSettings;
         protected readonly string _uri;
         protected readonly string _dataUri;
@@ -34,7 +34,7 @@ namespace LineDC.Messaging
         /// <param name="channelAccessToken">ChannelAccessToken</param>
         /// <param name="uri">Request URI</param>
         /// <param name="dataUri">Request URI for uploading and downloading media data</param>
-        protected LineMessagingClient(string channelAccessToken, string uri, string dataUri)
+        protected LineMessagingClient(HttpClient httpClient, string channelAccessToken, string uri, string dataUri)
         {
             _authorization = new AuthenticationHeaderValue("Bearer", channelAccessToken);
             _jsonSerializerSettings = new JsonSerializerSettings()
@@ -45,6 +45,7 @@ namespace LineDC.Messaging
             _jsonSerializerSettings.Converters.Add(new StringEnumConverter { NamingStrategy = new CamelCaseNamingStrategy() });
             _uri = uri;
             _dataUri = dataUri;
+            _client = httpClient;
         }
 
         /// <summary>
@@ -54,9 +55,9 @@ namespace LineDC.Messaging
         /// <param name="uri">URI</param>
         /// <param name="dataUri">Request URI for uploading and downloading media data</param>
         /// <returns>Instance of <see cref="LineDC.Messaging.LineMessagingClient"/></returns>
-        public static LineMessagingClient Create(string channelAccessToken, string uri = DEFAULT_URI, string dataUri = DEFAULT_DATA_URI)
+        public static LineMessagingClient Create(HttpClient httpClient, string channelAccessToken, string uri = DEFAULT_URI, string dataUri = DEFAULT_DATA_URI)
         {
-            return new LineMessagingClient(channelAccessToken, uri, dataUri);
+            return new LineMessagingClient(httpClient, channelAccessToken, uri, dataUri);
         }
 
         /// <summary>
@@ -70,15 +71,15 @@ namespace LineDC.Messaging
         /// <param name="uri">URI</param>
         /// <param name="dataUri">Request URI for uploading and downloading media data</param>
         /// <returns>Instance of <see cref="LineDC.Messaging.LineMessagingClient"/></returns>
-        public static async Task<LineMessagingClient> CreateAsync(string channelId, string channelSecret,
+        public static async Task<LineMessagingClient> CreateAsync(HttpClient httpClient, string channelId, string channelSecret,
             string uri = DEFAULT_URI, string dataUri = DEFAULT_DATA_URI)
         {
             if (string.IsNullOrEmpty(channelId)) { throw new ArgumentNullException(nameof(channelId)); }
             if (string.IsNullOrEmpty(channelSecret)) { throw new ArgumentNullException(nameof(channelSecret)); }
 
-            var oAuthClient = new OAuthClient(channelId, channelSecret, uri);
+            var oAuthClient = new OAuthClient(httpClient, channelId, channelSecret, uri);
             var accessToken = await oAuthClient.IssueChannelAccessTokenAsync();
-            return new LineMessagingClient(accessToken.AccessToken, uri, dataUri);
+            return new LineMessagingClient(httpClient, accessToken.AccessToken, uri, dataUri);
         }
 
 

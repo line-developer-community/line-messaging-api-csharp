@@ -12,16 +12,17 @@ namespace LineDC.Messaging.OAuth
     /// </summary>
     internal class OAuthClient
     {
-        private static readonly HttpClient _client = new HttpClient();
+        private readonly HttpClient _client;
         private readonly string _channelId;
         private readonly string _channelAccessToken;
         private readonly string _uri;
 
-        public OAuthClient(string channelId, string channelAccessToken, string uri)
+        public OAuthClient(HttpClient httpClient, string channelId, string channelAccessToken, string uri)
         {
             _channelId = channelId;
             _channelAccessToken = channelAccessToken;
             _uri = uri;
+            _client = httpClient;
         }
 
         /// <summary>
