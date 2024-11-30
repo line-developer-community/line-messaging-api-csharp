@@ -338,3 +338,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/line-messaging-api-csharp-web/appsettings.Development.json
